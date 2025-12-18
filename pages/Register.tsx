@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User as UserIcon, ArrowRight, AlertCircle } from 'lucide-react';
-// Fix: Use modular named imports
+// Fix: Use correct named exports for modular auth functions
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -28,6 +28,7 @@ const Register: React.FC = () => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Profile update requires the user object from the credential
       await updateProfile(userCredential.user, { displayName: name });
       navigate('/');
     } catch (err: any) {

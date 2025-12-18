@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, LayoutDashboard, ArrowRight, AlertCircle, Play } from 'lucide-react';
-// Fix: Use modular named import
+// Fix: Import named auth functions correctly from the modular SDK package
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 

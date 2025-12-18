@@ -2,12 +2,17 @@
 import { GoogleGenAI } from "@google/genai";
 import { Transaction, Category, BankAccount } from "../types";
 
+/**
+ * Analyzes financial transactions using Gemini 3 Pro and provides expert advice.
+ * Adheres to Google GenAI SDK guidelines for initialization and content generation.
+ */
 export const getFinancialAdvice = async (
   transactions: Transaction[],
   categories: Category[],
   accounts: BankAccount[]
 ): Promise<string> => {
-  // Use the API key exclusively and directly from the environment variable.
+  // Always use the required initialization format.
+  // The API key is obtained directly from process.env.API_KEY.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const summary = transactions.slice(-20).map(t => {
@@ -32,14 +37,16 @@ export const getFinancialAdvice = async (
   `;
 
   try {
+    // For complex reasoning tasks like financial advising, use 'gemini-3-pro-preview'.
+    // Use the .text property to extract the generated string from the response.
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview', // 使用高階邏輯分析模型
+      model: 'gemini-3-pro-preview',
       contents: prompt,
     });
-    // Directly use the .text property from GenerateContentResponse.
+    
     return response.text || "目前無法生成建議，請稍後再試。";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "AI 顧問正在離線研習中，暫時無法提供建議。";
+    return "AI 顧問目前服務忙碌中，請稍後再試。";
   }
 };

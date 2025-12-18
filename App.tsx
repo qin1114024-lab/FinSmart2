@@ -4,9 +4,9 @@ import { HashRouter, Routes, Route, Navigate, Link, useLocation } from 'react-ro
 import { 
   LayoutDashboard, Wallet, Receipt, PieChart, LogOut, PlusCircle, Menu, X, Sparkles
 } from 'lucide-react';
-// Fix: Use modular imports from firebase/auth
+// Fix: Import Auth functions from the correct modular package locations
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { AppState, User, BankAccount, Transaction, Category, TransactionType } from './types';
 import { DEFAULT_CATEGORIES, MOCK_ACCOUNTS, MOCK_TRANSACTIONS } from './constants';

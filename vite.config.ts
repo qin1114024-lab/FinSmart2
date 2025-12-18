@@ -4,15 +4,13 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // 相容 GitHub Pages 子目錄路徑
+  // 使用相對路徑，避免 GitHub Pages 子目錄導致的 404 白畫面
   base: './',
   define: {
-    // 注入環境變數，確保在生產環境中可用
+    // 僅保留 Gemini API_KEY 透過環境變數注入（建議保留在 Secret 中以維護安全性與額度控制）
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
-    'process.env.FIREBASE_CONFIG': JSON.stringify(process.env.FIREBASE_CONFIG),
   },
   build: {
-    // 使用 Terser 進行生產環境代碼壓縮優化
     minify: 'terser',
     terserOptions: {
       compress: {
